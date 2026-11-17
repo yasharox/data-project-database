@@ -2,64 +2,111 @@
 
 ## Project Overview
 
-This project analyses IPL match and ball-by-ball delivery data using SQL and PostgreSQL.
+This project analyses Indian Premier League (IPL) match and ball-by-ball delivery data using MySQL.
+
+The objective is to practise SQL queries, database creation, user permissions, CSV data import, joins, aggregation, and data analysis.
+
+## Technologies Used
+
+- MySQL
+- SQL
+- MySQL Workbench
+- Git and GitHub
 
 ## Database Details
 
-- Database name: `ipl`
-- Database user: `ipl_user`
-- Tables: `matches` and `deliveries`
-- Database system: PostgreSQL
+| Item | Value |
+|---|---|
+| Database | `IPL` |
+| Database User | `workbench_user` |
+| Table 1 | `matches` |
+| Table 2 | `deliveries` |
+| Database System | MySQL |
 
-## Files
+## Project Structure
 
-- `database_setup.sql` – Creates the PostgreSQL user and database.
-- `load_data.sql` – Creates tables and loads IPL CSV data.
-- `ipl_queries.sql` – Contains SQL queries to solve IPL problems.
-- `cleanup.sql` – Deletes the database and user after completion.
-- `README.md` – Project documentation.
-- `.gitignore` – Ignores unnecessary files.
-
-## How to Run
-
-1. Open PostgreSQL using psql or pgAdmin.
-2. Run the following command to create the database and user:
-
-```bash
-psql -U postgres -f database_setup.sql
+```text
+data-project-database/
+│
+├── 01_create_database.sql
+├── 02_cleanup.sql
+├── 03_load_csv.sql
+├── 04_ipl_queries.sql
+├── README.md
+└── .gitignore
 ```
 
-3. Connect to the IPL database:
+## IPL Analysis Tasks
+
+The following questions are solved using SQL:
+
+- Calculate the number of matches played per year across all IPL seasons.
+- Calculate the number of matches won by each team across all IPL seasons.
+- Calculate the extra runs conceded by each team in IPL 2016.
+- Identify the top 10 most economical bowlers in IPL 2015.
+
+## Database Setup and Execution
+
+### Prerequisites
+
+Install MySQL and ensure that the IPL CSV datasets are available locally.
+
+Required CSV files:
+
+- `matches.csv`
+- `deliveries.csv`
+
+### Step 1: Create Database and User
+
+Run the following script using a MySQL administrator account:
 
 ```bash
-psql -U ipl_user -d ipl
+mysql -u root -p < 01_create_database.sql
 ```
 
-4. Run the data-loading script:
+This creates the `workbench_user` account and the `IPL` database, and grants the required privileges to the user.
+
+### Step 2: Load CSV Data
+
+Update the CSV file paths inside `03_load_csv.sql` according to your local system.
+
+Run:
 
 ```bash
-psql -U ipl_user -d ipl -f load_data.sql
+mysql -u workbench_user -p IPL < 03_load_csv.sql
 ```
 
-5. Run the IPL analysis queries:
+This creates the required tables and imports the CSV records.
+
+### Step 3: Execute IPL Queries
+
+Run:
 
 ```bash
-psql -U ipl_user -d ipl -f ipl_queries.sql
+mysql -u workbench_user -p IPL < 04_ipl_queries.sql
 ```
 
-6. After completing the project, run the cleanup script:
+The queries display the required SQL result sets.
+
+### Step 4: Clean Up
+
+If the database and user need to be removed, connect as a MySQL administrator and run:
 
 ```bash
-psql -U postgres -f cleanup.sql
+mysql -u root -p < 02_cleanup.sql
 ```
 
-## Important Note
+**Note:** The cleanup script permanently deletes the IPL database and its data.
 
-Update the CSV file paths inside `load_data.sql` according to your own system before running the project.
+## Expected Outcome
 
-## IPL Problems Solved
+The project produces SQL result sets showing:
 
-1. Number of matches played per year in IPL.
-2. Number of matches won by each team across all IPL seasons.
-3. Extra runs conceded by each team in IPL 2016.
-4. Top 10 most economical bowlers in IPL 2015.
+- Total matches played per IPL season.
+- Total matches won by each team.
+- Extra runs conceded by each bowling team in 2016.
+- Top 10 economical bowlers in 2015.
+
+## Author
+
+Mohamed Yashar
